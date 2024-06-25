@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tic Tac Toe</title>
+    <style>
+        /* Styles for the game board */
+        #bod {
+            font-family: Arial, sans-serif;
+            background-color: #cfa1dba5;
+        }
+        #board {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 10px;
+            width: 500px;
+            margin: 0 auto;
+            margin-top: 20px;
+        }
+
+        #board div {
+            background-color: rgb(146, 193, 230);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            height: 150px;
+            cursor: pointer;
+        }
+
+        .winner {
+            background-color: lightgreen;
+            transition: background-color 0.5s ease;
+        }
+
+        /* Styles for game mode selection */
+        #mode-selection {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        #mode-selection button {
+            margin: 5px;
+            padding: 10px;
+        }
+
+        #mode-selection button.active {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        /* Styles for game status */
+        #status {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body id="bod">
+    <div id="mode-selection">
+        <button id="two_players" onclick="setGameMode('two_players')" class="mode-btn active">Two Players</button>
+        <button id="computer" onclick="setGameMode('computer')" class="mode-btn">Against Computer</button>
+        <button onclick="tic_tac_toe.restart()">Restart Game</button>
+    </div>
+
+    <div id="status">Player 1, make your move!</div>
+    <div id="board"></div>
+
+    <!-- Ensure the script path is correct -->
+    <script src="js/tic-tac-toe.js"></script>
+    <script>
+        // Function to set game mode
+        function setGameMode(mode) {
+            tic_tac_toe.set_game_mode(mode);
+            tic_tac_toe.restart(); // Restart game when mode changes
+            // Update active button
+            document.querySelectorAll('.mode-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.getElementById(mode).classList.add('active');
+        }
+
+        // Initialize the game with the board container
+        document.addEventListener('DOMContentLoaded', function() {
+            const container = document.getElementById('board');
+            tic_tac_toe.init(container);
+        });
+    </script>
+</body>
+</html>
